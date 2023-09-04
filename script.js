@@ -1,86 +1,64 @@
-program 1:
+//Get all the countries from Asia continent /region using Filter function
 
+var request=new XMLHttpRequest();
+request.open('GET','https://restcountries.com/v3.1/all');
+request.send();
+request.onload=function (){
+    var countryData=JSON.parse(this.response);
+    const result=countryData.filter((element)=>{
+        if(element.region==='Asia'){
+            return element.name;
+        }
+    })
+    console.log(result);}
+
+//Get all the countries with population of less than 2 lacs using Filter function
+
+var request=new XMLHttpRequest();
+request.open('GET','https://restcountries.com/v3.1/all');
+request.send();
+request.onload=function (){
+    var countryData=JSON.parse(this.response);
+    const result=countryData.filter((element)=>{
+        return element.population<200000;
+    })
+    console.log(result);}
+
+//Print the following details name, capital, flag using forEach function.
+
+var request=new XMLHttpRequest();
+request.open('GET','https://restcountries.com/v3.1/all');
+request.send();
+request.onload=function (){
+    var countryData=JSON.parse(this.response);
+    countryData.forEach((element)=>{
+        console.log(element.name,element.capital,element.flag);
+    })}
+
+//Print the total population of countries using reduce function 
+
+var request=new XMLHttpRequest();
+request.open('GET','https://restcountries.com/v3.1/all');
+request.send();
+request.onload=function (){
+    var countryData=JSON.parse(this.response);
+    const population=countryData.reduce((acc,element)=>{
+        return acc+element.population;
+    },0)
+    console.log(population);}
+
+//Print the country which use US Dollars as currency.
 
 var request = new XMLHttpRequest();
-request.open("GET","https://restcountries.com/v3.1/all",true)
-request.send()
- request.onload=function(){
-    var data = request.response
-    var result = JSON.parse(data)
-     var res = result.map((ele)=>`${ele.name.common} : ${ele.continent} : ${ele.region}`);
-
-     console.log(res)
+request.open('Get', 'https://restcountries.com/v3.1/all')
+request.send();
+request.onload = function () {
+        var data = JSON.parse(this.response);
+        var cur=[];
+        for(i=0;i<data.length;i++){
+            if(data[i].currencies[0].code==="USD")
+            {
+                console.log("name:",data[i].name,"==>",data[i].currencies[0].code)
+            }
+        }
     }
-
-
-program 2:
-
-
-var request = new XMLHttpRequest();
-request.open("GET","https://restcountries.com/v3.1/all",true)
-request.send()
- request.onload=function(){
-
-    var data = request.response
-    var result = JSON.parse(data)
-     var res = result.filter((ele)=>ele.population<200000)
-     
-     console.log(res)
-    
-    }
-
-
-program 3:
-
-
-var request = new XMLHttpRequest();
-
-request.open("GET","https://restcountries.com/v3.1/all",true)
-request.send()
- request.onload=function(){
-
-    var data = request.response
-    var result = JSON.parse(data)
-    var res = result.forEach((ele)=>{console.log(`${ele.name.common} ${ele.name} ${ele.capital} ${ele.flag}`)})
-   
-}
-
-
-
-program 4:
-
-
-var request = new XMLHttpRequest();
-
-request.open("GET","https://restcountries.com/v3.1/all",true)
-request.send()
- request.onload=function(){
-
-    var data = request.response
-    var result = JSON.parse(data)
-    var res = result.reduce((acc,cv)=>acc+cv.population,0)
-
-    console.log(res)
-    
- }
-
-
- program 5: 
- 
-   var request = new XMLHttpRequest();
-   request.open("GET","https://restcountries.com/v3.1/all",true)
-   request.send()
-   request.onload=function(){
-
-     var data = request.response
-     var result = JSON.parse(data)
-     var res1= res.map((ele)=>`${ele.name.common}: ${ele.US Dollars} ${ele.currency}`)
-     
-     console.log(res1)
-     
-    }
-
-
-
-
-
